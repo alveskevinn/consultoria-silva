@@ -649,6 +649,18 @@
         color: white;
       }
 
+      .calendar-day.available {
+        background: white;
+        color: #1a1a1a;
+        cursor: pointer;
+        border: 1px solid #e2e8f0;
+      }
+
+      .calendar-day.available:hover {
+        background: #f8fafc;
+        border-color: #667eea;
+      }
+
       .calendar-day.occupied {
         background: #fee2e2;
         color: #dc2626;
@@ -1019,15 +1031,26 @@
         </div>
       </section>
 
+      <!-- Floating Action Button -->
+
+
       <!-- Bottom Navigation -->
       <nav class="bottom-nav">
-        <div class="nav-item active">
+        <div class="nav-item active" data-section="home">
           <i class="fas fa-home"></i>
           <span>Início</span>
         </div>
-        <div class="nav-item">
-          <i class="fas fa-calendar"></i>
-          <span>Agenda</span>
+        <div class="nav-item" data-section="services">
+          <i class="fas fa-stethoscope"></i>
+          <span>Serviços</span>
+        </div>
+        <div class="nav-item" data-section="contact">
+          <i class="fas fa-phone"></i>
+          <span>Contato</span>
+        </div>
+        <div class="nav-item" data-section="location">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>Localização</span>
         </div>
       </nav>
     </div>
@@ -1101,20 +1124,15 @@
         </div>
         <div class="modal-body call-body">
           <div class="call-options">
-            <div class="call-option" id="callOption">
-              <div class="call-icon">
-                <i class="fas fa-phone"></i>
-              </div>
-              <div class="call-info">
+            <div class="call-option" id="callOption" style="margin-top: 10px;"  >
+            
+              <div class="call-info" >
                 <h3>Ligar</h3>
                 <p>(11) 91501-9683</p>
               </div>
             </div>
-            <div class="call-option" id="whatsappOption">
-              <div class="call-icon ">
-                
-                
-              </div>
+            <div class="call-option whatsapp" id="whatsappOption">
+             
               <div class="call-info">
                 <h3>WhatsApp</h3>
                 <p>Enviar mensagem</p>
@@ -1193,6 +1211,141 @@
           callModal.classList.remove("active");
         }
 
+        // Função para navegar para seções
+        function scrollToSection(section) {
+          const sections = {
+            home: document.querySelector('.header'),
+            services: document.querySelector('.services-section'),
+            contact: document.querySelector('.contact-section'),
+            location: document.querySelector('.footer-section')
+          };
+          
+          if (sections[section]) {
+            sections[section].scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+
+        // Função para mostrar modal de horários
+        function showScheduleModal() {
+          const scheduleModal = document.createElement('div');
+          scheduleModal.className = 'modal-overlay active';
+          scheduleModal.innerHTML = `
+            <div class="modal" style="max-width: 350px;">
+              <div class="modal-header">
+                <h2>Horários de Funcionamento</h2>
+                <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div style="padding: 20px 0;">
+                  <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+                    <span style="font-weight: 600;">Segunda a Sexta</span>
+                    <span>8h às 18h</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9;">
+                    <span style="font-weight: 600;">Sábado</span>
+                    <span>8h às 12h</span>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; padding: 12px 0;">
+                    <span style="font-weight: 600;">Domingo</span>
+                    <span style="color: #dc2626;">Fechado</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(scheduleModal);
+        }
+
+        // Função para criar efeito de confete
+        function createConfetti() {
+          const colors = ['#667eea', '#764ba2', '#22c55e', '#f59e0b', '#ef4444'];
+          
+          for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.style.cssText = `
+              position: fixed;
+              width: 10px;
+              height: 10px;
+              background: ${colors[Math.floor(Math.random() * colors.length)]};
+              top: -10px;
+              left: ${Math.random() * 100}vw;
+              z-index: 9999;
+              pointer-events: none;
+              animation: confettiFall 3s linear forwards;
+            `;
+            
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+              confetti.remove();
+            }, 3000);
+          }
+        }
+
+        // Função para mostrar modal de serviço
+        function showServiceModal(serviceName) {
+          const serviceInfo = {
+            'Limpeza Dental': {
+              description: 'Limpeza profissional completa com remoção de tártaro e polimento.',
+              duration: '45-60 minutos',
+              price: 'A partir de R$ 120,00'
+            },
+            'Implantes': {
+              description: 'Implantes dentários com tecnologia avançada e materiais de alta qualidade.',
+              duration: '2-3 horas',
+              price: 'A partir de R$ 3.500,00'
+            },
+            'Clareamento': {
+              description: 'Clareamento dental profissional para um sorriso mais branco e brilhante.',
+              duration: '1-2 horas',
+              price: 'A partir de R$ 300,00'
+            }
+          };
+
+          const service = serviceInfo[serviceName] || {
+            description: 'Serviço odontológico profissional.',
+            duration: 'Variável',
+            price: 'Consulte preços'
+          };
+
+          const serviceModal = document.createElement('div');
+          serviceModal.className = 'modal-overlay active';
+          serviceModal.innerHTML = `
+            <div class="modal" style="max-width: 400px;">
+              <div class="modal-header">
+                <h2>${serviceName}</h2>
+                <button class="modal-close" onclick="this.closest('.modal-overlay').remove()">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div style="padding: 20px 0;">
+                  <p style="margin-bottom: 20px; line-height: 1.6;">${service.description}</p>
+                  <div style="background: #f8fafc; padding: 16px; border-radius: 12px; margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                      <span style="font-weight: 600;">Duração:</span>
+                      <span>${service.duration}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                      <span style="font-weight: 600;">Preço:</span>
+                      <span style="color: #667eea; font-weight: 600;">${service.price}</span>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary" style="width: 100%;" onclick="this.closest('.modal-overlay').remove(); openModal();">
+                    <i class="fas fa-calendar-plus"></i> Agendar Consulta
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(serviceModal);
+        }
+
         // Renderizar calendário
         function renderCalendar() {
           const year = currentDate.getFullYear();
@@ -1242,11 +1395,13 @@
               dayElement.classList.add("today");
             }
 
-            // Verificar se é dia ocupado (segunda a sábado)
+            // Verificar se é dia disponível (segunda a sábado, não domingo)
             const dayOfWeek = date.getDay();
-            if (occupiedDays.includes(dayOfWeek) && date.getMonth() === month) {
+            if (dayOfWeek === 0) { // Domingo
               dayElement.classList.add("occupied");
+              dayElement.title = "Clínica fechada aos domingos";
             } else if (date.getMonth() === month && date >= today) {
+              dayElement.classList.add("available");
               dayElement.addEventListener("click", () => selectDate(date));
             }
 
@@ -1257,6 +1412,11 @@
         // Renderizar horários
         function renderTimeSlots() {
           timeGrid.innerHTML = "";
+
+          if (!selectedDate) {
+            timeGrid.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Selecione uma data para ver os horários disponíveis</p>';
+            return;
+          }
 
           const timeSlots = [
             "08:00",
@@ -1269,13 +1429,60 @@
             "17:00",
           ];
 
+          // Simular horários disponíveis (domingos e alguns horários específicos)
+          const dayOfWeek = selectedDate.getDay();
+          const isSunday = dayOfWeek === 0;
+          const isToday = selectedDate.toDateString() === new Date().toDateString();
+
           timeSlots.forEach((time) => {
             const timeElement = document.createElement("div");
-            timeElement.className = "time-slot occupied";
+            timeElement.className = "time-slot";
             timeElement.textContent = time;
-            timeElement.title = "Horário ocupado";
+
+            // Domingo - clínica fechada
+            if (isSunday) {
+              timeElement.className = "time-slot occupied";
+              timeElement.title = "Clínica fechada aos domingos";
+            }
+            // Hoje - verificar se o horário já passou
+            else if (isToday) {
+              const currentTime = new Date();
+              const slotTime = new Date();
+              const [hours, minutes] = time.split(':');
+              slotTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+              
+              if (currentTime > slotTime) {
+                timeElement.className = "time-slot occupied";
+                timeElement.title = "Horário já passou";
+              } else {
+                timeElement.className = "time-slot available";
+                timeElement.addEventListener("click", () => selectTime(time));
+              }
+            }
+            // Outros dias - horários disponíveis
+            else {
+              timeElement.className = "time-slot available";
+              timeElement.addEventListener("click", () => selectTime(time));
+            }
+
             timeGrid.appendChild(timeElement);
           });
+        }
+
+        // Selecionar horário
+        function selectTime(time) {
+          selectedTime = time;
+          
+          // Remover seleção anterior
+          document.querySelectorAll(".time-slot").forEach((slot) => {
+            slot.classList.remove("selected");
+          });
+          
+          // Adicionar seleção atual
+          event.target.classList.add("selected");
+          
+          // Habilitar botão de confirmação
+          confirmBtn.disabled = false;
         }
 
         // Selecionar data
@@ -1302,12 +1509,29 @@
 
         confirmBtn.addEventListener("click", () => {
           if (selectedDate && selectedTime) {
-            showNotification(
-              `Consulta agendada para ${selectedDate.toLocaleDateString(
-                "pt-BR"
-              )} às ${selectedTime}`
-            );
-            closeModalFunc();
+            // Mostrar loading
+            confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Agendando...';
+            confirmBtn.disabled = true;
+            
+            // Simular processamento
+            setTimeout(() => {
+              showNotification(
+                `✅ Consulta agendada para ${selectedDate.toLocaleDateString(
+                  "pt-BR"
+                )} às ${selectedTime}`
+              );
+              
+              // Efeito de confete
+              createConfetti();
+              
+              closeModalFunc();
+              
+              // Resetar botão
+              setTimeout(() => {
+                confirmBtn.innerHTML = 'Confirmar';
+                confirmBtn.disabled = false;
+              }, 1000);
+            }, 2000);
           }
         });
 
@@ -1333,21 +1557,11 @@
           showNotification("Abrindo WhatsApp...");
         });
 
-        // Quick action cards with haptic feedback simulation
+        // Quick action cards with enhanced functionality
         const actionCards = document.querySelectorAll(".action-card");
         actionCards.forEach((card) => {
           card.addEventListener("click", function () {
             const action = this.querySelector("h3").textContent;
-
-            if (action === "Agendar") {
-              openModal();
-              return;
-            }
-
-            if (action === "Ligar") {
-              showCallModal();
-              return;
-            }
 
             // Add ripple effect
             const ripple = document.createElement("div");
@@ -1368,12 +1582,30 @@
 
             setTimeout(() => {
               ripple.remove();
-              showNotification(`Ação: ${action}`);
             }, 600);
+
+            // Handle different actions
+            switch(action) {
+              case "Agendar":
+                openModal();
+                break;
+              case "Ligar":
+                showCallModal();
+                break;
+              case "Localização":
+                scrollToSection("location");
+                showNotification("Navegando para localização");
+                break;
+              case "Horários":
+                showScheduleModal();
+                break;
+              default:
+                showNotification(`Ação: ${action}`);
+            }
           });
         });
 
-        // Service items with smooth transitions
+        // Service items with enhanced interactions
         const serviceItems = document.querySelectorAll(".service-item");
         serviceItems.forEach((item) => {
           item.addEventListener("click", function () {
@@ -1381,18 +1613,18 @@
             this.style.transform = "translateX(8px) scale(0.98)";
             setTimeout(() => {
               this.style.transform = "";
-              showNotification(`Serviço selecionado: ${service}`);
+              showServiceModal(service);
             }, 200);
           });
         });
 
         // Floating action button with enhanced interaction
-        const fab = document.querySelector(".fab");
+        const fab = document.getElementById("fab");
         fab.addEventListener("click", function () {
           this.style.transform = "scale(0.9)";
           setTimeout(() => {
             this.style.transform = "";
-            showNotification("Agendar nova consulta");
+            openModal();
           }, 150);
         });
 
@@ -1400,6 +1632,8 @@
         const navItems = document.querySelectorAll(".nav-item");
         navItems.forEach((item) => {
           item.addEventListener("click", function () {
+            const section = this.getAttribute("data-section");
+            
             navItems.forEach((nav) => nav.classList.remove("active"));
             this.classList.add("active");
 
@@ -1408,6 +1642,9 @@
             setTimeout(() => {
               this.style.transform = "";
             }, 150);
+
+            // Navigate to section
+            scrollToSection(section);
           });
         });
 
@@ -1421,32 +1658,44 @@
           }, 150);
         });
 
-        // Contact items with hover effects
+        // Contact items with enhanced functionality
         const contactItems = document.querySelectorAll(".contact-item");
         contactItems.forEach((item) => {
           item.addEventListener("click", function () {
             const contactType = this.querySelector("h4").textContent;
             const contactValue = this.querySelector("p").textContent;
 
-            if (contactType === "Telefone") {
-              showNotification(`Ligando para ${contactValue}`);
-            } else if (contactType === "Endereço") {
-              showNotification(`Abrindo localização: ${contactValue}`);
-            } else {
-              showNotification(`${contactType}: ${contactValue}`);
+            switch(contactType) {
+              case "Telefone":
+                window.location.href = `tel:${contactValue.replace(/\D/g, '')}`;
+                showNotification("Iniciando ligação...");
+                break;
+              case "Endereço":
+                const address = encodeURIComponent(contactValue);
+                window.open(`https://maps.google.com/?q=${address}`, '_blank');
+                showNotification("Abrindo localização no Google Maps");
+                break;
+              case "Horário":
+                showScheduleModal();
+                break;
+              default:
+                showNotification(`${contactType}: ${contactValue}`);
             }
           });
         });
 
-        // Notification function
+        // Notification function with enhanced styling
         function showNotification(message) {
           const notification = document.createElement("div");
+          const isSuccess = message.includes('✅');
+          const isError = message.includes('❌');
+          
           notification.style.cssText = `
                     position: fixed;
                     top: 20px;
                     left: 50%;
                     transform: translateX(-50%);
-                    background: rgba(0,0,0,0.8);
+                    background: ${isSuccess ? 'rgba(34, 197, 94, 0.9)' : isError ? 'rgba(239, 68, 68, 0.9)' : 'rgba(0,0,0,0.9)'};
                     color: white;
                     padding: 12px 24px;
                     border-radius: 25px;
@@ -1455,18 +1704,31 @@
                     z-index: 1000;
                     backdrop-filter: blur(10px);
                     animation: slideDown 0.3s ease;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
                 `;
           notification.textContent = message;
 
           document.body.appendChild(notification);
+
+          // Simular vibração
+          if (navigator.vibrate) {
+            navigator.vibrate(100);
+          }
 
           setTimeout(() => {
             notification.style.animation = "slideUp 0.3s ease";
             setTimeout(() => {
               notification.remove();
             }, 300);
-          }, 2000);
+          }, 3000);
         }
+
+        // Fechar modais clicando fora
+        document.addEventListener('click', function(e) {
+          if (e.target.classList.contains('modal-overlay')) {
+            e.target.classList.remove('active');
+          }
+        });
 
         // Add CSS animations
         const style = document.createElement("style");
@@ -1496,6 +1758,26 @@
                     }
                     to {
                         transform: translateX(-50%) translateY(-100%);
+                        opacity: 0;
+                    }
+                }
+
+                @keyframes pulse {
+                    0%, 100% {
+                        transform: scale(1);
+                    }
+                    50% {
+                        transform: scale(1.05);
+                    }
+                }
+
+                .fab:hover {
+                    animation: pulse 2s infinite;
+                }
+
+                @keyframes confettiFall {
+                    to {
+                        transform: translateY(100vh) rotate(720deg);
                         opacity: 0;
                     }
                 }
