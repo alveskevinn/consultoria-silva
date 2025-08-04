@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dr. Silva - Clínica Odontológica</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #fafafa;
+        color: #1a1a1a;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 480px;
+        margin: 0 auto;
+        background: white;
+        min-height: 100vh;
+        position: relative;
+      }
+
+      /* Header */
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px 24px 60px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("https://images.unsplash.com/photo-1663182094304-557746ee056e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
+          center/cover;
+        opacity: 0.15;
+        z-index: 1;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      .doctor-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 16px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        overflow: hidden;
+      }
+
+      .doctor-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .header h1 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+        letter-spacing: -0.02em;
+      }
+
+      .header p {
+        font-size: 1rem;
+        opacity: 0.9;
+        font-weight: 400;
+      }
+
+      .back-btn {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        padding: 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        backdrop-filter: blur(10px);
+        z-index: 3;
+        transition: all 0.2s ease;
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-50%) scale(1.05);
+      }
+
+      /* Quick Actions */
+      .quick-actions {
+        padding: 0 24px;
+        margin-top: -40px;
+        position: relative;
+        z-index: 10;
+      }
+
+      .action-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .action-card {
+        background: white;
+        border-radius: 20px;
+        padding: 24px 20px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+      }
+
+      .action-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+      }
+
+      .action-card:active {
+        transform: translateY(-2px) scale(0.98);
+      }
+
+      .action-card i {
+        font-size: 2.2rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 12px;
+        display: block;
+      }
+
+      .action-card h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: #1a1a1a;
+      }
+
+      .action-card p {
+        font-size: 0.875rem;
+        color: #666;
+        font-weight: 400;
+      }
+
+      /* Appointment Section */
+      .appointment-section {
+        padding: 32px 24px 24px;
+      }
+
+      .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #1a1a1a;
+        display: flex;
+        align-items: center;
+        letter-spacing: -0.02em;
+      }
+
+      .section-title i {
+        margin-right: 12px;
+        color: #667eea;
+        font-size: 1.1rem;
+      }
+
+      .appointment-card {
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .appointment-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .appointment-time {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+        letter-spacing: -0.02em;
+      }
+
+      .appointment-type {
+        font-size: 1rem;
+        color: #4a5568;
+        margin-bottom: 16px;
+        font-weight: 500;
+      }
+
+      .appointment-status {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 16px;
+        border-radius: 25px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        gap: 6px;
+      }
+
+      .status-confirmed {
+        background: #dcfce7;
+        color: #166534;
+      }
+
+      .status-pending {
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      /* Services Section */
+      .services-section {
+        padding: 24px;
+        background: #fafafa;
+      }
+
+      .service-item {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        background: white;
+        border-radius: 16px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid #f1f5f9;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      .service-item:hover {
+        transform: translateX(4px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      }
+
+      .service-item:active {
+        transform: translateX(2px) scale(0.98);
+      }
+
+      .service-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-right: 16px;
+        font-size: 1.2rem;
+      }
+
+      .service-info h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+        color: #1a1a1a;
+      }
+
+      .service-info p {
+        font-size: 0.875rem;
+        color: #666;
+        font-weight: 400;
+      }
+
+      /* Contact Section */
+      .contact-section {
+        padding: 32px 24px;
+        background: white;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        padding: 16px 0;
+        border-bottom: 1px solid #f1f5f9;
+        transition: all 0.2s ease;
+      }
+
+      .contact-item:last-child {
+        border-bottom: none;
+      }
+
+      .contact-item:hover {
+        background: #f8fafc;
+        margin: 0 -16px;
+        padding: 16px;
+        border-radius: 12px;
+      }
+
+      .contact-icon {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-right: 16px;
+        font-size: 1rem;
+      }
+
+      .contact-info h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 2px;
+        color: #1a1a1a;
+      }
+
+      .contact-info p {
+        font-size: 0.875rem;
+        color: #666;
+        font-weight: 400;
+      }
+
+      /* Floating Action Button */
+      .fab {
+        position: fixed;
+        bottom: 100px;
+        right: 24px;
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.25rem;
+        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+      }
+
+      .fab:hover {
+        transform: scale(1.1);
+        box-shadow: 0 12px 40px rgba(102, 126, 234, 0.5);
+      }
+
+      .fab:active {
+        transform: scale(0.95);
+      }
+
+      /* Bottom Navigation */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        max-width: 480px;
+        background: white;
+        border-top: 1px solid #f1f5f9;
+        display: flex;
+        justify-content: space-around;
+        padding: 12px 0 24px;
+        backdrop-filter: blur(20px);
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-radius: 12px;
+      }
+
+      .nav-item.active {
+        color: #667eea;
+        background: rgba(102, 126, 234, 0.1);
+      }
+
+      .nav-item:hover {
+        background: rgba(102, 126, 234, 0.05);
+      }
+
+      .nav-item i {
+        font-size: 1.25rem;
+        margin-bottom: 4px;
+      }
+
+      .nav-item span {
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .footer-section {
+        padding: 32px 24px;
+        background: white;
+      }
+
+      /* Clinic Image */
+      .clinic-image {
+        width: 100%;
+        height: 200px;
+        background: url("https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80")
+          center/cover;
+        border-radius: 20px;
+        margin: 24px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .clinic-image::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(102, 126, 234, 0.3) 0%,
+          rgba(118, 75, 162, 0.3) 100%
+        );
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 480px) {
+        .container {
+          max-width: 100%;
+        }
+
+        .action-grid {
+          gap: 12px;
+        }
+
+        .action-card {
+          padding: 20px 16px;
+        }
+
+        .fab {
+          right: 20px;
+          bottom: 90px;
+        }
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 3px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      /* Modal Styles */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+      }
+
+      .modal-overlay.active {
+        display: flex;
+      }
+
+      .modal {
+        background: white;
+        border-radius: 24px;
+        width: 90%;
+        max-width: 400px;
+        max-height: 80vh;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: modalSlideIn 0.3s ease;
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9) translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .modal-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 24px;
+        text-align: center;
+        position: relative;
+      }
+
+      .modal-header h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+      }
+
+      .modal-close {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .modal-close:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      .modal-body {
+        padding: 24px;
+        max-height: 60vh;
+        overflow-y: auto;
+      }
+
+      .calendar {
+        width: 100%;
+      }
+
+      .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .calendar-nav {
+        background: #f8fafc;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .calendar-nav:hover {
+        background: #e2e8f0;
+      }
+
+      .calendar-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .calendar-day-header {
+        text-align: center;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #64748b;
+        padding: 8px 0;
+      }
+
+      .calendar-day {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+
+      .calendar-day.other-month {
+        color: #cbd5e1;
+      }
+
+      .calendar-day.today {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .calendar-day.occupied {
+        background: #fee2e2;
+        color: #dc2626;
+        cursor: not-allowed;
+      }
+
+      .calendar-day.occupied::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        width: 6px;
+        height: 6px;
+        background: #dc2626;
+        border-radius: 50%;
+      }
+
+      .calendar-day.selected {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .calendar-day:not(.other-month):not(.occupied):hover {
+        background: #f1f5f9;
+      }
+
+      .time-slots {
+        margin-top: 24px;
+      }
+
+      .time-slots h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: #1a1a1a;
+      }
+
+      .time-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .time-slot {
+        padding: 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 0.875rem;
+        font-weight: 500;
+      }
+
+      .time-slot.available {
+        background: white;
+        color: #1a1a1a;
+      }
+
+      .time-slot.available:hover {
+        background: #f8fafc;
+        border-color: #667eea;
+      }
+
+      .time-slot.occupied {
+        background: #fee2e2;
+        color: #dc2626;
+        cursor: not-allowed;
+        border-color: #fecaca;
+      }
+
+      .time-slot.selected {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-color: #667eea;
+      }
+
+      .modal-footer {
+        padding: 20px 24px;
+        border-top: 1px solid #f1f5f9;
+        display: flex;
+        gap: 12px;
+      }
+
+      .btn {
+        flex: 1;
+        padding: 12px 20px;
+        border-radius: 12px;
+        border: none;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-secondary {
+        background: #f1f5f9;
+        color: #64748b;
+      }
+
+      .btn-secondary:hover {
+        background: #e2e8f0;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* Call Modal Styles */
+      .call-modal {
+        max-width: 350px;
+      }
+
+      .call-header {
+        text-align: center;
+        padding: 32px 24px 24px;
+      }
+
+      .call-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 16px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        overflow: hidden;
+      }
+
+      .call-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .call-header h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0 0 4px 0;
+      }
+
+      .call-header p {
+        font-size: 0.875rem;
+        opacity: 0.9;
+        margin: 0;
+      }
+
+      .call-body {
+        padding: 0 24px 24px;
+      }
+
+      .call-options {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .call-option {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        background: #f8fafc;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid #e2e8f0;
+      }
+
+      .call-option:hover {
+        background: #f1f5f9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .call-option:active {
+        transform: translateY(0) scale(0.98);
+      }
+
+      .call-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-right: 16px;
+        font-size: 1.2rem;
+      }
+
+      .call-icon.whatsapp {
+        background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+      }
+
+      .call-info h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 0 0 4px 0;
+        color: #1a1a1a;
+      }
+
+      .call-info p {
+        font-size: 0.875rem;
+        color: #666;
+        margin: 0;
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <div class="doctor-avatar">
+            <img
+              src="https://images.unsplash.com/photo-1674775372058-c4c8813c6611?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Dr. Silva"
+            />
+          </div>
+          <h1>Dr. Silva</h1>
+          <p>Clínica Odontológica</p>
+        </div>
+      </header>
+
+      <!-- Quick Actions -->
+      <section class="quick-actions">
+        <div class="action-grid">
+          <div class="action-card">
+            <i class="fas fa-calendar-plus"></i>
+            <h3>Agendar</h3>
+            <p>Nova consulta</p>
+          </div>
+          <div class="action-card call">
+            <i class="fas fa-phone"></i>
+            <h3>Ligar</h3>
+            <p>Contato direto</p>
+          </div>
+          <div class="action-card">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Localização</h3>
+            <p>Como chegar</p>
+          </div>
+          <div class="action-card">
+            <i class="fas fa-clock"></i>
+            <h3>Horários</h3>
+            <p>Funcionamento</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Clinic Image -->
+      <div class="clinic-image"></div>
+
+      <!-- Next Appointment -->
+      <section class="appointment-section">
+        <h2 class="section-title">
+          <i class="fas fa-calendar-check"></i>
+          Próxima Consulta
+        </h2>
+        <div class="appointment-card">
+          <div class="appointment-time">15:30 - Hoje</div>
+          <div class="appointment-type">Limpeza e Avaliação</div>
+          <span class="appointment-status status-confirmed">
+            <i class="fas fa-check-circle"></i>
+            Confirmado
+          </span>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section class="services-section">
+        <h2 class="section-title">
+          <i class="fas fa-stethoscope"></i>
+          Nossos Serviços
+        </h2>
+        <div class="service-item">
+          <div class="service-icon">
+            <i class="fas fa-tooth"></i>
+          </div>
+          <div class="service-info">
+            <h4>Limpeza Dental</h4>
+            <p>Profissional e completa</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">
+            <i class="fas fa-crown"></i>
+          </div>
+          <div class="service-info">
+            <h4>Implantes</h4>
+            <p>Tecnologia avançada</p>
+          </div>
+        </div>
+        <div class="service-item">
+          <div class="service-icon">
+            <i class="fas fa-smile"></i>
+          </div>
+          <div class="service-info">
+            <h4>Clareamento</h4>
+            <p>Sorriso mais branco</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Info -->
+      <section class="contact-section">
+        <h2 class="section-title">
+          <i class="fas fa-address-book"></i>
+          Contato
+        </h2>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="contact-info">
+            <h4>Telefone</h4>
+            <p>(11) 91501-9683</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-info">
+            <h4>Endereço</h4>
+            <p>Av Paulista, 123 - Centro, São Paulo - SP</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="contact-info">
+            <h4>Horário</h4>
+            <p>Seg-Sex: 8h às 18h</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="footer-section">
+        <h2 class="section-title">
+          <i class="fas fa-map-marker-alt"></i>
+          Localização
+        </h2>
+        <div class="map-container">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.098536255999!2d-46.65390548503444!3d-23.564616184682228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sCl%C3%ADnica%20Odontol%C3%B3gica%20Dr.%20Silva!5e0!3m2!1spt-BR!2sbr!4v1722800000000!5m2!1spt-BR!2sbr"
+            width="100%"
+            height="450"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </section>
+
+      <!-- Bottom Navigation -->
+      <nav class="bottom-nav">
+        <div class="nav-item active">
+          <i class="fas fa-home"></i>
+          <span>Início</span>
+        </div>
+        <div class="nav-item">
+          <i class="fas fa-calendar"></i>
+          <span>Agenda</span>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Modal de Agendamento -->
+    <div class="modal-overlay" id="appointmentModal">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Agendar Consulta</h2>
+          <button class="modal-close" id="closeModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="calendar">
+            <div class="calendar-header">
+              <button class="calendar-nav" id="prevMonth">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <div class="calendar-title" id="monthTitle">Dezembro 2024</div>
+              <button class="calendar-nav" id="nextMonth">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="calendar-grid" id="calendarGrid">
+              <!-- Dias da semana -->
+              <div class="calendar-day-header">Dom</div>
+              <div class="calendar-day-header">Seg</div>
+              <div class="calendar-day-header">Ter</div>
+              <div class="calendar-day-header">Qua</div>
+              <div class="calendar-day-header">Qui</div>
+              <div class="calendar-day-header">Sex</div>
+              <div class="calendar-day-header">Sáb</div>
+              <!-- Dias do mês serão inseridos via JavaScript -->
+            </div>
+          </div>
+
+          <div class="time-slots">
+            <h3>Horários Disponíveis</h3>
+            <div class="time-grid" id="timeGrid">
+              <!-- Horários serão inseridos via JavaScript -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="cancelAppointment">
+            Cancelar
+          </button>
+          <button class="btn btn-primary" id="confirmAppointment" disabled>
+            Confirmar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Ligação -->
+    <div class="modal-overlay" id="callModal">
+      <div class="modal call-modal">
+        <div class="modal-header call-header">
+          <div class="call-avatar">
+            <img
+              src="https://images.unsplash.com/photo-1674775372058-c4c8813c6611?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Dr. Silva"
+            />
+          </div>
+          <h2>Dr. Silva</h2>
+          <p>Clínica Odontológica</p>
+          <button class="modal-close" id="closeCallModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body call-body">
+          <div class="call-options">
+            <div class="call-option" id="callOption">
+              <div class="call-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="call-info">
+                <h3>Ligar</h3>
+                <p>(11) 91501-9683</p>
+              </div>
+            </div>
+            <div class="call-option" id="whatsappOption">
+              <div class="call-icon ">
+                
+                
+              </div>
+              <div class="call-info">
+                <h3>WhatsApp</h3>
+                <p>Enviar mensagem</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="cancelCall">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Interactive functionality with improved UX
+      document.addEventListener("DOMContentLoaded", function () {
+        // Modal functionality
+        const modal = document.getElementById("appointmentModal");
+        const closeModal = document.getElementById("closeModal");
+        const cancelBtn = document.getElementById("cancelAppointment");
+        const confirmBtn = document.getElementById("confirmAppointment");
+        const prevMonth = document.getElementById("prevMonth");
+        const nextMonth = document.getElementById("nextMonth");
+        const monthTitle = document.getElementById("monthTitle");
+        const calendarGrid = document.getElementById("calendarGrid");
+        const timeGrid = document.getElementById("timeGrid");
+
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+
+        // Horários ocupados (segunda a sábado)
+        const occupiedDays = [1, 2, 3, 4, 5, 6]; // Segunda = 1, Sábado = 6
+        const occupiedTimes = [
+          "08:00",
+          "09:00",
+          "10:00",
+          "11:00",
+          "14:00",
+          "15:00",
+          "16:00",
+          "17:00",
+        ];
+
+        // Modal de ligação
+        const callModal = document.getElementById("callModal");
+        const closeCallModal = document.getElementById("closeCallModal");
+        const cancelCall = document.getElementById("cancelCall");
+        const callOption = document.getElementById("callOption");
+        const whatsappOption = document.getElementById("whatsappOption");
+
+        // Função para abrir modal
+        function openModal() {
+          modal.classList.add("active");
+          renderCalendar();
+          renderTimeSlots();
+        }
+
+        // Função para fechar modal
+        function closeModalFunc() {
+          modal.classList.remove("active");
+          selectedDate = null;
+          selectedTime = null;
+          confirmBtn.disabled = true;
+        }
+
+        // Função para abrir modal de ligação
+        function showCallModal() {
+          callModal.classList.add("active");
+        }
+
+        // Função para fechar modal de ligação
+        function closeCallModalFunc() {
+          callModal.classList.remove("active");
+        }
+
+        // Renderizar calendário
+        function renderCalendar() {
+          const year = currentDate.getFullYear();
+          const month = currentDate.getMonth();
+
+          monthTitle.textContent = new Date(year, month).toLocaleDateString(
+            "pt-BR",
+            {
+              month: "long",
+              year: "numeric",
+            }
+          );
+
+          const firstDay = new Date(year, month, 1);
+          const lastDay = new Date(year, month + 1, 0);
+          const startDate = new Date(firstDay);
+          startDate.setDate(startDate.getDate() - firstDay.getDay());
+
+          calendarGrid.innerHTML = `
+                    <div class="calendar-day-header">Dom</div>
+                    <div class="calendar-day-header">Seg</div>
+                    <div class="calendar-day-header">Ter</div>
+                    <div class="calendar-day-header">Qua</div>
+                    <div class="calendar-day-header">Qui</div>
+                    <div class="calendar-day-header">Sex</div>
+                    <div class="calendar-day-header">Sáb</div>
+                `;
+
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          for (let i = 0; i < 42; i++) {
+            const date = new Date(startDate);
+            date.setDate(startDate.getDate() + i);
+
+            const dayElement = document.createElement("div");
+            dayElement.className = "calendar-day";
+            dayElement.textContent = date.getDate();
+
+            // Verificar se é do mês atual
+            if (date.getMonth() !== month) {
+              dayElement.classList.add("other-month");
+            }
+
+            // Verificar se é hoje
+            if (date.getTime() === today.getTime()) {
+              dayElement.classList.add("today");
+            }
+
+            // Verificar se é dia ocupado (segunda a sábado)
+            const dayOfWeek = date.getDay();
+            if (occupiedDays.includes(dayOfWeek) && date.getMonth() === month) {
+              dayElement.classList.add("occupied");
+            } else if (date.getMonth() === month && date >= today) {
+              dayElement.addEventListener("click", () => selectDate(date));
+            }
+
+            calendarGrid.appendChild(dayElement);
+          }
+        }
+
+        // Renderizar horários
+        function renderTimeSlots() {
+          timeGrid.innerHTML = "";
+
+          const timeSlots = [
+            "08:00",
+            "09:00",
+            "10:00",
+            "11:00",
+            "14:00",
+            "15:00",
+            "16:00",
+            "17:00",
+          ];
+
+          timeSlots.forEach((time) => {
+            const timeElement = document.createElement("div");
+            timeElement.className = "time-slot occupied";
+            timeElement.textContent = time;
+            timeElement.title = "Horário ocupado";
+            timeGrid.appendChild(timeElement);
+          });
+        }
+
+        // Selecionar data
+        function selectDate(date) {
+          selectedDate = date;
+          document.querySelectorAll(".calendar-day").forEach((day) => {
+            day.classList.remove("selected");
+          });
+          event.target.classList.add("selected");
+          renderTimeSlots();
+        }
+
+        // Event listeners
+        closeModal.addEventListener("click", closeModalFunc);
+        cancelBtn.addEventListener("click", closeModalFunc);
+        prevMonth.addEventListener("click", () => {
+          currentDate.setMonth(currentDate.getMonth() - 1);
+          renderCalendar();
+        });
+        nextMonth.addEventListener("click", () => {
+          currentDate.setMonth(currentDate.getMonth() + 1);
+          renderCalendar();
+        });
+
+        confirmBtn.addEventListener("click", () => {
+          if (selectedDate && selectedTime) {
+            showNotification(
+              `Consulta agendada para ${selectedDate.toLocaleDateString(
+                "pt-BR"
+              )} às ${selectedTime}`
+            );
+            closeModalFunc();
+          }
+        });
+
+        // Event listeners para modal de ligação
+        closeCallModal.addEventListener("click", closeCallModalFunc);
+        cancelCall.addEventListener("click", closeCallModalFunc);
+
+        // Fazer ligação
+        callOption.addEventListener("click", () => {
+          const phoneNumber = "11915019683";
+          window.location.href = `tel:${phoneNumber}`;
+          closeCallModalFunc();
+          showNotification("Iniciando ligação...");
+        });
+
+        // Abrir WhatsApp
+        whatsappOption.addEventListener("click", () => {
+          const phoneNumber = "11915019683";
+          const message = "Olá! Gostaria de agendar uma consulta.";
+          const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+          window.open(whatsappUrl, "_blank");
+          closeCallModalFunc();
+          showNotification("Abrindo WhatsApp...");
+        });
+
+        // Quick action cards with haptic feedback simulation
+        const actionCards = document.querySelectorAll(".action-card");
+        actionCards.forEach((card) => {
+          card.addEventListener("click", function () {
+            const action = this.querySelector("h3").textContent;
+
+            if (action === "Agendar") {
+              openModal();
+              return;
+            }
+
+            if (action === "Ligar") {
+              showCallModal();
+              return;
+            }
+
+            // Add ripple effect
+            const ripple = document.createElement("div");
+            ripple.style.position = "absolute";
+            ripple.style.borderRadius = "50%";
+            ripple.style.background = "rgba(255,255,255,0.6)";
+            ripple.style.transform = "scale(0)";
+            ripple.style.animation = "ripple 0.6s linear";
+            ripple.style.left = "50%";
+            ripple.style.top = "50%";
+            ripple.style.width = "20px";
+            ripple.style.height = "20px";
+            ripple.style.marginLeft = "-10px";
+            ripple.style.marginTop = "-10px";
+
+            this.style.position = "relative";
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+              ripple.remove();
+              showNotification(`Ação: ${action}`);
+            }, 600);
+          });
+        });
+
+        // Service items with smooth transitions
+        const serviceItems = document.querySelectorAll(".service-item");
+        serviceItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            const service = this.querySelector("h4").textContent;
+            this.style.transform = "translateX(8px) scale(0.98)";
+            setTimeout(() => {
+              this.style.transform = "";
+              showNotification(`Serviço selecionado: ${service}`);
+            }, 200);
+          });
+        });
+
+        // Floating action button with enhanced interaction
+        const fab = document.querySelector(".fab");
+        fab.addEventListener("click", function () {
+          this.style.transform = "scale(0.9)";
+          setTimeout(() => {
+            this.style.transform = "";
+            showNotification("Agendar nova consulta");
+          }, 150);
+        });
+
+        // Bottom navigation with smooth transitions
+        const navItems = document.querySelectorAll(".nav-item");
+        navItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            navItems.forEach((nav) => nav.classList.remove("active"));
+            this.classList.add("active");
+
+            // Add subtle animation
+            this.style.transform = "scale(0.95)";
+            setTimeout(() => {
+              this.style.transform = "";
+            }, 150);
+          });
+        });
+
+        // Back button with enhanced feedback
+        const backBtn = document.querySelector(".back-btn");
+        backBtn.addEventListener("click", function () {
+          this.style.transform = "translateY(-50%) scale(0.9)";
+          setTimeout(() => {
+            this.style.transform = "translateY(-50%)";
+            showNotification("Voltar");
+          }, 150);
+        });
+
+        // Contact items with hover effects
+        const contactItems = document.querySelectorAll(".contact-item");
+        contactItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            const contactType = this.querySelector("h4").textContent;
+            const contactValue = this.querySelector("p").textContent;
+
+            if (contactType === "Telefone") {
+              showNotification(`Ligando para ${contactValue}`);
+            } else if (contactType === "Endereço") {
+              showNotification(`Abrindo localização: ${contactValue}`);
+            } else {
+              showNotification(`${contactType}: ${contactValue}`);
+            }
+          });
+        });
+
+        // Notification function
+        function showNotification(message) {
+          const notification = document.createElement("div");
+          notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(0,0,0,0.8);
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    z-index: 1000;
+                    backdrop-filter: blur(10px);
+                    animation: slideDown 0.3s ease;
+                `;
+          notification.textContent = message;
+
+          document.body.appendChild(notification);
+
+          setTimeout(() => {
+            notification.style.animation = "slideUp 0.3s ease";
+            setTimeout(() => {
+              notification.remove();
+            }, 300);
+          }, 2000);
+        }
+
+        // Add CSS animations
+        const style = document.createElement("style");
+        style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+                
+                @keyframes slideDown {
+                    from {
+                        transform: translateX(-50%) translateY(-100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(-50%) translateY(0);
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideUp {
+                    from {
+                        transform: translateX(-50%) translateY(0);
+                        opacity: 1;
+                    }
+                    to {
+                        transform: translateX(-50%) translateY(-100%);
+                        opacity: 0;
+                    }
+                }
+            `;
+        document.head.appendChild(style);
+      });
+    </script>
+  </body>
+</html>
